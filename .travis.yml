@@ -1,0 +1,26 @@
+sudo: required
+services: 
+ - docker
+
+before_install:
+ - docker build -t piyush/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+ - docker run -e CI=true piyush/react-test npm test -- --coverage
+
+
+after_success:
+ - docker build -t piyush/multi-client ./client
+ - docker build -t piyush/multi-nginx ./nginx
+ - docker build -t piyush/multi-server ./server
+ - docker build -t piyush/multi-worker ./worker
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+ - docker push stephengrider/multi-nginx
+ - docker push stephengrider/multi-client
+ - docker push stephengrider/multi-server
+ - docker push stephengrider/multi-worker
+
+
+
+
+

@@ -21,7 +21,7 @@ after_success:
  - docker build -t piyush/multi-nginx ./nginx
  - docker build -t piyush/multi-server ./server
  - docker build -t piyush/multi-worker ./worker
- - docker login -u "$DOCKER_ID"  -p "$DOCKER_PASSWORD"
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
  - docker push piyush/multi-nginx
  - docker push piyush/multi-client
  - docker push piyush/multi-server

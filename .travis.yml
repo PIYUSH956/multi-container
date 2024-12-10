@@ -17,15 +17,15 @@ script:
 
 
 after_success:
- - docker build -t piyush/multi-client ./client
- - docker build -t piyush/multi-nginx ./nginx
- - docker build -t piyush/multi-server ./server
- - docker build -t piyush/multi-worker ./worker
+ - docker build -t piyush/multi-client:latest ./client
+ - docker build -t piyush/multi-nginx:latest ./nginx
+ - docker build -t piyush/multi-server:latest ./server
+ - docker build -t piyush/multi-worker:latest ./worker
  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
- - docker push piyush/multi-nginx
- - docker push piyush/multi-client
- - docker push piyush/multi-server
- - docker push piyush/multi-worker
+ - docker push piyush/multi-nginx:latest
+ - docker push piyush/multi-client:latest
+ - docker push piyush/multi-server:latest
+ - docker push piyush/multi-worker:latest
 
 
 
